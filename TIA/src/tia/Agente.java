@@ -79,17 +79,13 @@ public abstract class Agente {
         this.salario = salario;
     }
 
-    public void verAgentes(){
-        
-        
-        
-    }
+    
     
     @Override
     public String toString() {
         return "Nombre: " + nombre + " Edad: " + edad + " Direccion: " + direccion + " Salario:" + salario;
     }
-
+    
     
     
     

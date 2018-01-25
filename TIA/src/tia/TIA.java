@@ -80,7 +80,7 @@ public class TIA {
                         break;
                 case 7:
                         break;
-                case 8: bandera= false;
+                case 8: bandera = false;
                         break;
             }
         }
