@@ -9,7 +9,7 @@ package tia;
  *
  * @author Alex Recacha
  */
-public class Agente {
+public abstract class Agente {
     
     protected String nombre;
     protected int edad;
@@ -79,6 +79,12 @@ public class Agente {
         this.salario = salario;
     }
 
+    public void verAgentes(){
+        
+        
+        
+    }
+    
     @Override
     public String toString() {
         return "Nombre: " + nombre + " Edad: " + edad + " Direccion: " + direccion + " Salario:" + salario;
