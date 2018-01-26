@@ -13,7 +13,7 @@ public final class Espia extends Agente {
     
     private String[] pisos;
 
-    public Espia(String[] pisos, String nombre, int edad, String direccion, int salario) {
+    public Espia(String[] pisos, String nombre, int edad, String direccion, double salario) {
         super(nombre, edad, direccion, salario);
         this.pisos = new String[20];
     }

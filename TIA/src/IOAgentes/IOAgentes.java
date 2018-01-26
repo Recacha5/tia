@@ -5,12 +5,17 @@
  */
 package IOAgentes;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -69,10 +74,103 @@ public class IOAgentes {
         
     }
     
-    public static void cargarFicherosBinario(File pisos, File armas, String[] vPisos, String[] vArmas){
-        
-        
-        
+    public static void cargarFicheros(File pisos, File armas, File agente, Agente vAgentes[], String[] vPisos, String[] vArmas){
+        int contador=0;
+        //cargo el fichero pisos.
+        try (FileInputStream fi = new FileInputStream(pisos);
+             DataInputStream leer = new DataInputStream(fi);) {
+            
+            while (true) {
+                vPisos[contador] = leer.readUTF();
+                contador++;
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.err.println("Fichero pisos no encontrado al leer.");
+        } catch (EOFException ex) {
+            System.out.println("Fin de lectura del fichero pisos.");
+        } catch (IOException ex) {
+            System.err.println("Fallo al leer pisos");
+        }
+        //reinicio la variable contador para reutilizarla al cargar el fichero armas.
+        contador=0;
+
+        try (FileInputStream fi = new FileInputStream(armas);
+             DataInputStream leer = new DataInputStream(fi);) {
+            
+            while (true) {
+                vArmas[contador] = leer.readUTF();
+                contador++;
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.err.println("Fichero armas no encontrado al leer.");
+        } catch (EOFException ex) {
+            System.out.println("Fin de lectura del fichero armas.");
+        } catch (IOException ex) {
+            System.err.println("Fallo al leer armas");
+        }
+        //cargo el vector de agentes
+        contador=0;
+        try (FileInputStream fi = new FileInputStream(armas);
+             ObjectInputStream leer = new ObjectInputStream(fi);) {
+            
+            while (true) {
+                vAgentes[contador] = (Agente) leer.readObject();
+                contador++;
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.err.println("Fichero agente no encontrado al leer.");
+        } catch (EOFException ex) {
+            System.out.println("Fin de lectura del fichero agente.");
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Fallo al leer agentes, no se ha encontrado la clase.");
+        } catch (IOException ex) {
+            System.err.println("Fallo al leer agente");
+        } 
+    }
+    
+    public static void guardarFicheros(File pisos, File armas, File agentes,Agente[] vAgentes, String[] vPisos, String[] vArmas){
+        //guardo el fichero pisos
+        try (FileOutputStream fo = new FileOutputStream(pisos);
+             DataOutputStream escribir = new DataOutputStream(fo);){
+            for (String p : vPisos) {
+                if (p != null) {
+                    escribir.writeUTF(p);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println("Fichero pisos no encontrado al guardar.");
+        } catch (IOException ex) {
+            System.err.println("Error al guardar pisos.");
+        }
+        //guardo el fichero armas
+        try (FileOutputStream fo = new FileOutputStream(pisos);
+             DataOutputStream escribir = new DataOutputStream(fo);){
+            for (String a : vArmas) {
+                if (a!= null) {
+                    escribir.writeUTF(a);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println("Fichero armas no encontrado al guardar.");
+        } catch (IOException ex) {
+            System.err.println("Error al guardar armas.");
+        }
+        //Guardo el vector entero de agentes.
+        try (FileOutputStream fo = new FileOutputStream(pisos);
+             ObjectOutputStream escribir = new ObjectOutputStream(fo);){
+            for (Agente a : vAgentes) {
+                if (a!= null) {
+                    escribir.writeObject(a);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println("Fichero agentes no encontrado al guardar.");
+        } catch (IOException ex) {
+            System.err.println("Error al guardar agentes.");
+        }
     }
     
     public static void altaPisoNuevo(){

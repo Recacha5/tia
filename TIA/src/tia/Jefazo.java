@@ -13,7 +13,7 @@ public final class Jefazo extends Agente {
     
     private int anyosMandato;
 
-    public Jefazo(int anyosMandato, String nombre, int edad, String direccion, int salario) {
+    public Jefazo(int anyosMandato, String nombre, int edad, String direccion, double salario) {
         super(nombre, edad, direccion, salario);
         this.anyosMandato = anyosMandato;
     }
@@ -38,7 +38,5 @@ public final class Jefazo extends Agente {
                 super.toString() + " Años de Mandato: " + anyosMandato + 
                 "\n *******************************************";
     }
-    
-    
     
 }

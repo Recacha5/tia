@@ -13,7 +13,7 @@ public final class A007 extends Agente {
     
     private int bajas;
 
-    public A007(int bajas, String nombre, int edad, String direccion, int salario) {
+    public A007(int bajas, String nombre, int edad, String direccion, double salario) {
         super(nombre, edad, direccion, salario);
         this.bajas = bajas;
     }
